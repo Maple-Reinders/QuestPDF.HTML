@@ -52,9 +52,7 @@ namespace HTMLToQPDF.Components
 
         public Dictionary<string, Func<IContainer, IContainer>> ContainerStyles { get; } = new Dictionary<string, Func<IContainer, IContainer>>()
         {
-            { "p", c => c.PaddingVertical(6) },
-            { "ul", c => c.PaddingLeft(30) },
-            { "ol", c => c.PaddingLeft(30) }
+            { "p", c => c.PaddingBottom(3) }
         };
 
         public float ListVerticalPadding { get; set; } = 12;
