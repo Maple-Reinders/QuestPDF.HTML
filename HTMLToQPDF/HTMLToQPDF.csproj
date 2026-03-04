@@ -14,15 +14,18 @@
     </Description>
     <PackageProjectUrl>https://github.com/Maple-Reinders/QuestPDF.HTML</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageId>QuestPDF.HTML</PackageId>
+    <PackageId>Maple.QuestPDF.HTML</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Maple-Reinders/QuestPDF.HTML</RepositoryUrl>
     <PackageTags>pdf, file, export, generate, generation, tool, create, creation, render, document, format, quest, html, library, converter, open, source, free, standard, core</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.5.0</AssemblyVersion>
-    <FileVersion>1.5.0</FileVersion>
-    <Version>1.5.0</Version>
+    <AssemblyVersion>1.5.1</AssemblyVersion>
+    <FileVersion>1.5.1</FileVersion>
+    <Version>1.5.1</Version>
     <PackageReleaseNotes>
+v1.5.1:
+- Added net48 target framework support
+
 v1.5.0:
 - Added new HTML tags: span, blockquote, pre, code, hr, mark, abbr, kbd, samp, var, q
 - Added CSS inline style parsing support for text and container properties
@@ -30,7 +33,7 @@ v1.5.0:
 - Supported color formats: hex, rgb(), rgba(), named colors
 - Supported length units: px, pt, em, rem, cm, mm, in, %
 
-For full changelog see: https://github.com/JeremyVm/HTMLToQPDF/blob/master/CHANGELOG.md
+For full changelog see: https://github.com/Maple-Reinders/QuestPDF.HTML/blob/master/CHANGELOG.md
     </PackageReleaseNotes>
   </PropertyGroup>
 
