@@ -23,7 +23,7 @@ namespace HTMLQuestPDF.Utils
             if (string.IsNullOrWhiteSpace(styleAttribute))
                 return styles;
 
-            var declarations = styleAttribute.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            var declarations = styleAttribute.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var declaration in declarations)
             {
                 var colonIndex = declaration.IndexOf(':');
@@ -439,7 +439,7 @@ namespace HTMLQuestPDF.Utils
         private static float? ParseBorderWidth(string value)
         {
             // Simple border parsing - extract width from "1px solid black" format
-            var parts = value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var parts = value.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length > 0)
             {
                 return ParseLength(parts[0]);
