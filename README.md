@@ -12,7 +12,7 @@ QuestPDF currently does not support inserting HTML into a PDF document. This lib
 ## Installation
 
 ```
-dotnet add package QuestPDF.HTML
+dotnet add package Maple.QuestPDF.HTML
 ```
 
 ## Usage
