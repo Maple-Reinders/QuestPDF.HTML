@@ -1,0 +1,50 @@
+# Pipeline to build, pack and deploy QuestPDF.HTML NuGet package
+
+trigger:
+- maple-pckg
+
+name: '1.0.$(Date:yyyyMMdd)$(Rev:r)'
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  buildConfiguration: 'Release'
+  libraryProject: 'HTMLToQPDF/HTMLToQPDF.csproj'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET 9 SDK'
+  inputs:
+    packageType: 'sdk'
+    version: '9.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore'
+  inputs:
+    command: 'restore'
+    projects: '$(libraryProject)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
+  inputs:
+    command: 'build'
+    projects: '$(libraryProject)'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack'
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(libraryProject)'
+    configuration: '$(buildConfiguration)'
+    nobuild: true
+    versioningScheme: 'off'
+
+- task: NuGetCommand@2
+  displayName: 'Push to Azure Artifacts'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'e786d536-6655-44c0-be8c-e893a91d0e8e/528f8f46-d747-443c-90d8-7bcaed97c514'
