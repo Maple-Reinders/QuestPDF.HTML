@@ -15,7 +15,16 @@ namespace HTMLQuestPDF.Components.Tags
         protected override IContainer ApplyStyles(IContainer container)
         {
             var first = IsFirstList(node);
-            return base.ApplyStyles(container).Element(e => first ? e.PaddingVertical(args.ListVerticalPadding) : e);
+            return base.ApplyStyles(container).Element(e =>
+            {
+                var result = e.PaddingVertical(args.ListVerticalPadding);
+                if (first)
+                    result.PaddingHorizontal(0);
+                else
+                    result.PaddingLeft(25);
+
+                return result;
+            });
         }
 
         private bool IsFirstList(HtmlNode node)
