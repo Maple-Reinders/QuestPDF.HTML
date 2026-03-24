@@ -19,14 +19,14 @@
     <RepositoryUrl>https://github.com/Maple-Reinders/QuestPDF.HTML</RepositoryUrl>
     <PackageTags>pdf, file, export, generate, generation, tool, create, creation, render, document, format, quest, html, library, converter, open, source, free, standard, core</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.5.2</AssemblyVersion>
-    <FileVersion>1.5.2</FileVersion>
-    <Version>1.5.2</Version>
+    <AssemblyVersion>1.5.3</AssemblyVersion>
+    <FileVersion>1.5.3</FileVersion>
+    <Version>1.5.3</Version>
     <PackageReleaseNotes>
-v1.5.2:
-- update default HTMl and List component styles
+v1.5.3:
+- add paragraph styles
 
-For full changelog see: https://github.com/Maple-Reinders/QuestPDF.HTML/blob/master/CHANGELOG.md
+
     </PackageReleaseNotes>
   </PropertyGroup>
 

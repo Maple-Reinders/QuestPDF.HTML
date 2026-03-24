@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
 namespace HTMLToQPDF.Components
@@ -10,13 +11,15 @@ namespace HTMLToQPDF.Components
     {
         public Dictionary<string, TextStyle> TextStyles { get; }
         public Dictionary<string, Func<IContainer, IContainer>> ContainerStyles { get; }
+        public Dictionary<string, Action<TextDescriptor>> ParagraphStyles { get; }
         public float ListVerticalPadding { get; }
         public GetImgBySrc GetImgBySrc { get; }
 
-        public HTMLComponentsArgs(Dictionary<string, TextStyle> textStyles, Dictionary<string, Func<IContainer, IContainer>> containerStyles, float listVerticalPadding, GetImgBySrc getImgBySrc)
+        public HTMLComponentsArgs(Dictionary<string, TextStyle> textStyles, Dictionary<string, Func<IContainer, IContainer>> containerStyles, Dictionary<string, Action<TextDescriptor>> paragraphStyles, float listVerticalPadding, GetImgBySrc getImgBySrc)
         {
             TextStyles = textStyles;
             ContainerStyles = containerStyles;
+            ParagraphStyles = paragraphStyles;
             ListVerticalPadding = listVerticalPadding;
             GetImgBySrc = getImgBySrc;
         }
