@@ -14,11 +14,13 @@ namespace HTMLQuestPDF.Components
     {
         private readonly List<HtmlNode> lineNodes;
         private readonly Dictionary<string, TextStyle> textStyles;
+        private readonly Dictionary<string, Action<TextDescriptor>> paragraphStyles;
 
         public ParagraphComponent(List<HtmlNode> lineNodes, HTMLComponentsArgs args)
         {
             this.lineNodes = lineNodes;
             this.textStyles = args.TextStyles;
+            this.paragraphStyles = args.ParagraphStyles;
         }
 
         private HtmlNode? GetParrentBlock(HtmlNode node)
@@ -56,15 +58,27 @@ namespace HTMLQuestPDF.Components
             first.InnerHtml = first.InnerHtml.TrimStart();
             last.InnerHtml = last.InnerHtml.TrimEnd();
 
-            container.Text(GetAction(lineNodes));
+            container.Text(text =>
+            {
+                ApplyParagraphStyles(text);
+                lineNodes.ForEach(node => GetAction(node).Invoke(text));
+            });
         }
 
-        private Action<TextDescriptor> GetAction(List<HtmlNode> nodes)
+        private void ApplyParagraphStyles(TextDescriptor text)
         {
-            return text =>
+            // Apply default "*" style first
+            if (paragraphStyles.TryGetValue("*", out var defaultStyle))
             {
-                lineNodes.ForEach(node => GetAction(node).Invoke(text));
-            };
+                defaultStyle(text);
+            }
+
+            // Apply tag-specific style (overrides default)
+            var parentBlock = GetParrentBlock(lineNodes.First());
+            if (parentBlock != null && paragraphStyles.TryGetValue(parentBlock.Name.ToLower(), out var tagStyle))
+            {
+                tagStyle(text);
+            }
         }
 
         private Action<TextDescriptor> GetAction(HtmlNode node)

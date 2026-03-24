@@ -55,6 +55,8 @@ namespace HTMLToQPDF.Components
             { "p", c => c.PaddingBottom(3) }
         };
 
+        public Dictionary<string, Action<TextDescriptor>> ParagraphStyles { get; } = new Dictionary<string, Action<TextDescriptor>>();
+
         public float ListVerticalPadding { get; set; } = 12;
 
         public string HTML { get; set; } = "";
@@ -67,7 +69,7 @@ namespace HTMLToQPDF.Components
 
             CreateSeparateBranchesForTextNodes(node);
 
-            container.Component(node.GetComponent(new HTMLComponentsArgs(TextStyles, ContainerStyles, ListVerticalPadding, GetImgBySrc)));
+            container.Component(node.GetComponent(new HTMLComponentsArgs(TextStyles, ContainerStyles, ParagraphStyles, ListVerticalPadding, GetImgBySrc)));
         }
 
         /// <summary>

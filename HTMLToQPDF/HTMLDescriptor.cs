@@ -1,6 +1,7 @@
 ﻿using System;
 using HTMLToQPDF.Components;
 using HTMLToQPDF.Utils;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
 namespace HTMLQuestPDF
@@ -27,6 +28,16 @@ namespace HTMLQuestPDF
         public void SetContainerStyleForHtmlElement(string tagName, Func<IContainer, IContainer> style)
         {
             PDFPage.ContainerStyles[tagName.ToLower()] = style;
+        }
+
+        public void SetParagraphStyleForHtmlElement(string tagName, Action<TextDescriptor> style)
+        {
+            PDFPage.ParagraphStyles[tagName.ToLower()] = style;
+        }
+
+        public void SetDefaultParagraphStyle(Action<TextDescriptor> style)
+        {
+            PDFPage.ParagraphStyles["*"] = style;
         }
 
         public void SetListVerticalPadding(float value, Unit unit = Unit.Point)
