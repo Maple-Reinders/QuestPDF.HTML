@@ -112,6 +112,18 @@ namespace HTMLQuestPDF.Extensions
             return node.Name.ToLower() == "table";
         }
 
+        /// <summary>
+        /// The elements that make up a table's grid. They carry structure rather than content, so
+        /// transforms that rearrange inline/block content must leave them intact.
+        /// </summary>
+        private static readonly string[] TableStructureElements =
+            { "table", "thead", "tbody", "tfoot", "tr", "td", "th" };
+
+        public static bool IsTableStructure(this HtmlNode node)
+        {
+            return TableStructureElements.Contains(node.Name.ToLower());
+        }
+
         public static bool IsLineNode(this HtmlNode node)
         {
             return HTMLMapSettings.LineElements.Contains(node.Name.ToLower());

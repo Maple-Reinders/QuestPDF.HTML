@@ -84,6 +84,25 @@ namespace HTMLToQPDF.Components
         /// <param name="node"></param>
         private void CreateSeparateBranchesForTextNodes(HtmlNode node)
         {
+            // tr/td/th/tbody/thead are all in LineElements, and "table" is a BlockElement, so a row
+            // containing a nested table satisfies the condition below and gets sliced into one branch
+            // per child - i.e. one <tr> per <td>. That destroys the grid: every cell becomes its own
+            // single-cell row, and the table collapses into one narrow column.
+            //
+            // Excel and Word nest tables inside cells routinely, so this fires on most pasted
+            // spreadsheets. Slicing exists to stop inline/block mixes (<p><s><div>..</div>text</s></p>)
+            // producing stray line breaks; table structure must be left intact. Recurse instead, so
+            // genuine inline/block mixes *inside* the cells are still handled.
+            if (node.IsTableStructure())
+            {
+                foreach (var item in node.ChildNodes.ToList())
+                {
+                    CreateSeparateBranchesForTextNodes(item);
+                }
+
+                return;
+            }
+
             if (node.IsLineNode() && node.HasBlockElement())
             {
                 var slices = node.GetSlices(new List<HtmlNode>() { node });
