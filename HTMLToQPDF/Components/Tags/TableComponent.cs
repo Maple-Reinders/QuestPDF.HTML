@@ -41,13 +41,7 @@ namespace HTMLQuestPDF.Components.Tags
         }
 
         /// <summary>
-        /// The th/td cells that belong to *this* table, in document order.
-        ///
-        /// This used to select with "//table[@id=X]//td". "//" is descendant-or-self, so a table
-        /// swallowed every cell of every table nested inside it: those cells were placed into the
-        /// parent's grid *and* rendered again by the nested table's own component. Excel and Word
-        /// routinely wrap cell content in nested tables, so the parent grid filled up with one bogus
-        /// single-cell row per nested row - which is what pushed everything into a narrow column 1.
+        /// True for a td or th element.
         /// </summary>
         private static bool IsCell(HtmlNode candidate)
         {
@@ -172,16 +166,16 @@ namespace HTMLQuestPDF.Components.Tags
         }
 
         /// <summary>
-        /// A flat 5pt of padding costs 10pt of width per cell, which is fine on a 3 column table and
-        /// ruinous on a 30 column one - on Letter portrait it can eat more than half the page and
-        /// squeeze text down to one character per line. Scale it back as the table gets wider.
-        /// </summary>
-        /// <summary>
         /// Past this many columns a table is treated as "wide": padding is trimmed hard and the whole
         /// table is scaled to fit rather than being allowed to wrap itself to death.
         /// </summary>
         private const int WideTableColumnCount = 12;
 
+        /// <summary>
+        /// A flat 5pt of padding costs 10pt of width per cell, which is fine on a 3 column table and
+        /// ruinous on a 30 column one - on Letter portrait it can eat more than half the page and
+        /// squeeze text down to one character per line. Scale it back as the table gets wider.
+        /// </summary>
         private static float GetCellPadding(int columnCount)
         {
             if (columnCount <= 10) return 5f;

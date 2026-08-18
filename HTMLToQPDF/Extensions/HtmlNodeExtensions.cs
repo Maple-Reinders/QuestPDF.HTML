@@ -116,12 +116,16 @@ namespace HTMLQuestPDF.Extensions
         /// The elements that make up a table's grid. They carry structure rather than content, so
         /// transforms that rearrange inline/block content must leave them intact.
         /// </summary>
-        private static readonly string[] TableStructureElements =
+        private static readonly HashSet<string> TableStructureElements =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             { "table", "thead", "tbody", "tfoot", "tr", "td", "th" };
 
         public static bool IsTableStructure(this HtmlNode node)
         {
-            return TableStructureElements.Contains(node.Name.ToLower());
+            // OrdinalIgnoreCase rather than ToLower(): this runs once per node while walking the whole
+            // document, so it avoids allocating a lowercased string per call, and the comparison is
+            // explicitly culture-invariant.
+            return TableStructureElements.Contains(node.Name);
         }
 
         public static bool IsLineNode(this HtmlNode node)
