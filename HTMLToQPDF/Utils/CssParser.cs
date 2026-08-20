@@ -222,13 +222,8 @@ namespace HTMLQuestPDF.Utils
                 case "width":
                     var width = ParseLength(value);
                     if (width.HasValue)
-                        // MaxWidth, not Width. Width is a hard constraint, and pasted markup routinely
-                        // declares a width the element cannot be given - e.g. a cell with
-                        // style="width: 194pt" inside a table the same CSS caps at 194pt, where the
-                        // cell's own border and padding push the requirement past what the column can
-                        // offer. QuestPDF then aborts the entire document with "conflicting size
-                        // constraints". Capping keeps the intent (never wider than this) while letting
-                        // the element shrink when the space genuinely isn't there.
+                        // Capped rather than fixed, so an element that cannot be given its declared
+                        // width shrinks instead of failing the whole layout
                         container = container.MaxWidth(width.Value);
                     break;
 
