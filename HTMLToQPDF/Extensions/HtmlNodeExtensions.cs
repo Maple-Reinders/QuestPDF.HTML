@@ -112,6 +112,18 @@ namespace HTMLQuestPDF.Extensions
             return node.Name.ToLower() == "table";
         }
 
+        /// <summary>
+        /// The elements that make up a table's grid.
+        /// </summary>
+        private static readonly HashSet<string> TableStructureElements =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            { "table", "thead", "tbody", "tfoot", "tr", "td", "th" };
+
+        public static bool IsTableStructure(this HtmlNode node)
+        {
+            return TableStructureElements.Contains(node.Name);
+        }
+
         public static bool IsLineNode(this HtmlNode node)
         {
             return HTMLMapSettings.LineElements.Contains(node.Name.ToLower());

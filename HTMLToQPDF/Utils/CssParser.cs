@@ -222,7 +222,9 @@ namespace HTMLQuestPDF.Utils
                 case "width":
                     var width = ParseLength(value);
                     if (width.HasValue)
-                        container = container.Width(width.Value);
+                        // Capped rather than fixed, so an element that cannot be given its declared
+                        // width shrinks instead of failing the whole layout
+                        container = container.MaxWidth(width.Value);
                     break;
 
                 case "max-width":

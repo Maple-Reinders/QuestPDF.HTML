@@ -84,6 +84,18 @@ namespace HTMLToQPDF.Components
         /// <param name="node"></param>
         private void CreateSeparateBranchesForTextNodes(HtmlNode node)
         {
+            // Slicing a table structure element would split its row into one tr per cell and destroy
+            // the grid. Recurse instead, so inline/block mixes inside the cells are still handled.
+            if (node.IsTableStructure())
+            {
+                foreach (var item in node.ChildNodes.ToList())
+                {
+                    CreateSeparateBranchesForTextNodes(item);
+                }
+
+                return;
+            }
+
             if (node.IsLineNode() && node.HasBlockElement())
             {
                 var slices = node.GetSlices(new List<HtmlNode>() { node });
