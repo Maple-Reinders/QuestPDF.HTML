@@ -19,12 +19,14 @@
     <RepositoryUrl>https://github.com/Maple-Reinders/QuestPDF.HTML</RepositoryUrl>
     <PackageTags>pdf, file, export, generate, generation, tool, create, creation, render, document, format, quest, html, library, converter, open, source, free, standard, core</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.5.3</AssemblyVersion>
-    <FileVersion>1.5.3</FileVersion>
-    <Version>1.5.3</Version>
+    <AssemblyVersion>1.6.0</AssemblyVersion>
+    <FileVersion>1.6.0</FileVersion>
+    <Version>1.6.0</Version>
     <PackageReleaseNotes>
-v1.5.3:
-- add paragraph styles
+v1.6.0:
+- improve table rendering for complex and nested structures
+- refine table parsing for accurate row identification
+- fix some pages not rendering
 
 
     </PackageReleaseNotes>
